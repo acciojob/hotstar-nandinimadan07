@@ -1,19 +1,34 @@
 package com.driver.services;
 
+
 import com.driver.EntryDto.ProductionHouseEntryDto;
 import com.driver.model.ProductionHouse;
+import com.driver.model.WebSeries;
 import com.driver.repository.ProductionHouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service public class ProductionHouseService {
+import java.util.ArrayList;
+import java.util.List;
 
-    @Autowired ProductionHouseRepository productionHouseRepository;
+@Service
+public class ProductionHouseService {
 
-    public Integer addProductionHouseToDb(ProductionHouseEntryDto productionHouseEntryDto) {
-        //Save the ProductionHouse object into the Db and return the id of the saved ProductionHouse
+    @Autowired
+    ProductionHouseRepository productionHouseRepository;
+
+    public Integer addProductionHouseToDb(ProductionHouseEntryDto productionHouseEntryDto){
+
         ProductionHouse productionHouse = new ProductionHouse();
+
         productionHouse.setName(productionHouseEntryDto.getName());
-        return productionHouseRepository.save(productionHouse).getId();
+        productionHouse.setRatings(0);
+
+        List<WebSeries> list = new ArrayList<>();
+        productionHouse.setWebSeriesList(list);
+        return  productionHouseRepository.save(productionHouse).getId();
     }
+
+
+
 }
